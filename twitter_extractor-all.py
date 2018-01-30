@@ -1,3 +1,5 @@
+# uso: twitter_extractor_all <ciudad:madrid, malaga, valencia, sevilla, bilbao, barcelona>
+
 import tweepy
 import sys
 import json
@@ -6,6 +8,22 @@ from tweepy import OAuthHandler
 from textwrap import TextWrapper
 from datetime import datetime 
 from elasticsearch import Elasticsearch 
+
+'''
+@author Jiménez Zafra, Salud María 
+@author Plaza del Arco, Flor Miriam
+@author García Cumbreras, Miguel Ángel
+'''
+
+@created_at enero 2018
+
+
+
+# Create authentication via Oauth2 twitter
+consumer_key = 'vL6P3Os6WC2apkRX7OkkESy3w' 
+consumer_secret = 'QjZbAJZb7X0DAbfFSKTsahTxnE7bZyygcbH52hP6JYiUGltWyi' 
+access_token = '264311475-p9QtIPEa7VfKpR0LCoyYYk8StStRQetryLu1LQrV' 
+access_secret = '9AACyHDcdnEOJak6RszdnEdQ79wCEK5wScZRRmV8k2tZi'
 
 # Valores de cada índice
 keywords_ebola = ["ebola", "ébola"]
@@ -46,28 +64,22 @@ localizacion=sys.argv[1]
 
 if (localizacion=='madrid'):
 	GEOBOX = [-4.3763,40.0642,-3.0508,40.8438]
-	LOCATION = "40.41, -3.70"	
+	LOCATION = "40.41, -3.70"
 elif (localizacion=='barcelona'):
 	GEOBOX = [0.5,41.04,3.07,42.18]
 	LOCATION = "41.38, 2.16"
 elif (localizacion=='sevilla'):
 	GEOBOX = [-6.95,36.99,-5.12,37.8]
 	LOCATION = "37.39, -5.95"
-elif (localizacion=='barcelona'):
+elif (localizacion=='bilbao'):
 	GEOBOX = [-4.19,42.59,-1.89,43.72]
 	LOCATION = "43.26, -2.93"
-elif (localizacion=='barcelona'):
+elif (localizacion=='valencia'):
 	GEOBOX = [-1.65,38.77,0.92,40.42]
 	LOCATION = "39.45, -0.35"
-elif (localizacion=='barcelona'):
+elif (localizacion=='malaga'):
 	GEOBOX = [-5.434,36.4285,-3.6057,37.2511]
 	LOCATION = "36.75, -4.39"
-
-# Create authentication via Oauth2 twitter
-consumer_key = 'vL6P3Os6WC2apkRX7OkkESy3w' 
-consumer_secret = 'QjZbAJZb7X0DAbfFSKTsahTxnE7bZyygcbH52hP6JYiUGltWyi' 
-access_token = '264311475-p9QtIPEa7VfKpR0LCoyYYk8StStRQetryLu1LQrV' 
-access_secret = '9AACyHDcdnEOJak6RszdnEdQ79wCEK5wScZRRmV8k2tZi' 
 
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
@@ -104,6 +116,9 @@ mapping = {
                     },
                     "text": {
 		                "type": "string"
+		            }
+		            "entities":{
+		            	"type": "entities"
 		            }
                 }
             }
@@ -147,10 +162,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]
 				}
 				es.index(index=indexname_apendicitis, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_sarampion),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_sarampion),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -158,10 +174,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_sarampion, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_varicela),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_varicela),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -169,10 +186,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]
 				}
 				es.index(index=indexname_varicela, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_sida),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_sida),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -180,10 +198,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_sida, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_alzheimer),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_alzheimer),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -191,10 +210,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_alzheimer, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_obesidad),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_obesidad),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -202,10 +222,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_obesidad, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_anorexia),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_anorexia),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -213,10 +234,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_anorexia, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_caries),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_caries),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -224,10 +246,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_caries, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_diabetes),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_diabetes),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -235,10 +258,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_diabetes, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_otitis),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_otitis),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -246,10 +270,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_otitis, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_hepatitis),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_hepatitis),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -257,10 +282,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_hepatitis, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_asma),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_asma),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -268,10 +294,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_asma, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_cancer),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_cancer),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -279,10 +306,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_cancer, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_resfriado),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_resfriado),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -290,10 +318,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_resfriado, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_gripe),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_gripe),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -301,10 +330,11 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_gripe, doc_type="twitter", body=doc1, ignore=400)
-			elif (re.compile('|'.join(keywords_ebola),re.IGNORECASE).search(tweet)):
+			if (re.compile('|'.join(keywords_ebola),re.IGNORECASE).search(tweet)):
 				doc1 = {
 				    "created_at": json_data["created_at"],
 				    "id": json_data["id"],
@@ -312,7 +342,8 @@ class StreamApi(tweepy.StreamListener):
 				    "lang": json_data["lang"],
 				    "timestamp_ms": datetime.now(),
 				    "loc": LOCATION,
-				    "text": tweet			    
+				    "text": tweet,
+				    "entities": json_data["entities"]			    
 				}
 				es.index(index=indexname_ebola, doc_type="twitter", body=doc1, ignore=400)
 		
