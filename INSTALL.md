@@ -2,10 +2,10 @@
 
 - Instalar Java JDK
 Para instalar JDK añadiremos el repositorio ppa, actualizaremos repositorios e instalaremos java, para ellos ejecutaremos:
-add-apt-repository ppa:webupd8team/java
-apt-get update
-apt-get install oracle-java8-installer
-java -version
+add-apt-repository ppa:webupd8team/java  
+apt-get update  
+apt-get install oracle-java8-installer  
+java -version  
 
 - Instalar Elasticsearch
 Elasticsearch es un motor de búsqueda y análisis distribuido, para instalarlo añadiremos el repositorio de Elastic y procederemos con la instalación:
