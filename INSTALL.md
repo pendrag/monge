@@ -7,13 +7,14 @@
 add-apt-repository ppa:webupd8team/java  
 apt-get update  
 apt-get install oracle-java8-installer  
-java -version  
+java -version
 ```
 
-   1.2. Instalar Elasticsearch
+   1.2. Instalar Elasticsearch  
    Elasticsearch es un motor de búsqueda y análisis distribuido, para instalarlo añadiremos el repositorio de Elastic y procederemos con la instalación:
     
- ```wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -  
+ ```
+ wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -  
  echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list  
  apt-get update  
  apt-get install elasticsearch     
@@ -21,8 +22,8 @@ java -version
  systemctl enable elasticsearch 
  ``` 
 
-- Instalar Kibana
-Kibana te permite explorar, visualizar o descubrir datos. Además podemos obtener gráficas o colocar datos geográficos en cualquier mapa, para instalar Kibana:  
+   1.3. Instalar Kibana
+   Kibana te permite explorar, visualizar o descubrir datos. Además podemos obtener gráficas o colocar datos geográficos en cualquier mapa, para instalar Kibana:  
 apt-get install kibana  
 
 Como Kibana corre sobre un servidor web, necesitaremos tener instalado un servidor web (Apache, nginx, etc.)
