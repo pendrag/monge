@@ -51,4 +51,5 @@ Algunos scripts de python hacen uso de librerías, y si no las tenemos instalada
     pip install langdetect  
     pip install stop_words  
     pip install textwrap  
-    pip install elasticsearch```
+    pip install elasticsearch
+    ```
