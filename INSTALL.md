@@ -10,8 +10,9 @@ apt-get install oracle-java8-installer
 java -version  
 ```
 
-    1.2. Instalar Elasticsearch
-    Elasticsearch es un motor de búsqueda y análisis distribuido, para instalarlo añadiremos el repositorio de Elastic y procederemos con la instalación:  
+   1.2. Instalar Elasticsearch
+   Elasticsearch es un motor de búsqueda y análisis distribuido, para instalarlo añadiremos el repositorio de Elastic y procederemos con la instalación:
+    
  ```wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -  
  echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list  
  apt-get update  
