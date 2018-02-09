@@ -1,4 +1,4 @@
-# uso: twitter_extractor-all-final-SINAI-HACKATON <localizacion>
+# Usage: twitter_extractor-all-final-SINAI-HACKATON <location>
 
 import tweepy
 import sys
@@ -18,14 +18,12 @@ from http.client import IncompleteRead
 from urllib3.exceptions import ProtocolError
 
 '''
-@author Jiménez Zafra, Salud María 
-@author Plaza del Arco, Flor Miriam
-@author García Cumbreras, Miguel Ángel
+@author SINAI, Universidad de Jaén
 
 @created_at enero 2018
 '''
 
-localizacion=sys.argv[1]
+location=sys.argv[1]
 
 # Create authentication via Oauth2 twitter
 consumer_key = '' 
@@ -34,8 +32,8 @@ access_token = ''
 access_secret = ''
 
 
-# KEYWORDS ESPAÑOL
-keywords_basic_ebola = ["ebola", "ébola"]
+# Basic Spanish keywords
+keywords_basic_ebola = ["ébola", "ebola"]
 keywords_basic_gripe = ["gripe", "trancazo", "influenza"]
 keywords_basic_resfriado = ["resfriado", "catarro", "constipado", "resfriamiento"]
 keywords_basic_cancer = ["cáncer", "cancer", "tumor", "carcinoma", "granuloma", "epitelioma", "sarcoma", "neoplasia", "cefaloma"]
@@ -49,32 +47,32 @@ keywords_basic_obesidad = ["obesidad", "gordura", "adiposidad"]
 keywords_basic_alzheimer = ["alzheimer"]
 keywords_basic_sida = ["sida", "vih"]
 keywords_basic_varicela = ["varicela"]
-keywords_basic_sarampion = ["sarampion", "sarampión"]
+keywords_basic_sarampion = ["sarampión", "sarampion"]
 keywords_basic_apendicitis = ["apendicitis"]
 
-keywords_basic_es = [keywords_basic_ebola, keywords_basic_gripe, keywords_basic_resfriado, keywords_basic_cancer, keywords_basic_asma, keywords_basic_hepatitis, keywords_basic_otitis, keywords_basic_diabetes, keywords_basic_caries, keywords_basic_anorexia, keywords_basic_obesidad, keywords_basic_alzheimer, keywords_basic_sida, keywords_basic_varicela, keywords_basic_sarampion, keywords_basic_apendicitis]
+keywords_es_basic = [keywords_basic_ebola, keywords_basic_gripe, keywords_basic_resfriado, keywords_basic_cancer, keywords_basic_asma, keywords_basic_hepatitis, keywords_basic_otitis, keywords_basic_diabetes, keywords_basic_caries, keywords_basic_anorexia, keywords_basic_obesidad, keywords_basic_alzheimer, keywords_basic_sida, keywords_basic_varicela, keywords_basic_sarampion, keywords_basic_apendicitis]
 
-# KEYWORDS CATALÁN
-keywords_cat_ebola = ["ebola", "ebola"]
-keywords_cat_gripe = ["grip", "trancazo", "influença"]
-keywords_cat_resfriado = ["refredat", "refredat", "constipat", "refredament"]
-keywords_cat_cancer = ["càncer", "tumor", "carcinoma", "granuloma", "epitelioma", "sarcoma", "neoplàsia", "cefaloma"]
+# Basic Catalan Keywords
+keywords_cat_ebola = ["ébola", "ebola"]
+keywords_cat_gripe = ["gripe", "grip", "trancazo", "influença"]
+keywords_cat_resfriado = ["resfriado", "refredat", "refredat", "constipat", "refredament"]
+keywords_cat_cancer = ["cáncer", "càncer", "tumor", "carcinoma", "granuloma", "epitelioma", "sarcoma", "neoplàsia", "cefaloma"]
 keywords_cat_asma = ["asma", "dispnea"]
 keywords_cat_hepatitis = ["hepatitis"]
 keywords_cat_otitis = ["otitis"]
-keywords_cat_diabetes = ["diabetis" "glucosúria"]
-keywords_cat_caries = ["càries", "picada", "úlcera", "perforació", "horadación"]
-keywords_cat_anorexia = ["anorèxia"]
-keywords_cat_obesidad = ["obesitat", "grassor", "adipositat"]
+keywords_cat_diabetes = ["diabetes", "diabetis" "glucosúria"]
+keywords_cat_caries = ["caries", "càries", "picada", "úlcera", "perforació", "horadación"]
+keywords_cat_anorexia = ["anorexia", "anorèxia"]
+keywords_cat_obesidad = ["obesidad", "obesitat", "grassor", "adipositat"]
 keywords_cat_alzheimer = ["alzheimer"]
 keywords_cat_sida = ["sida", "vih"]
-keywords_cat_varicela = ["varicella"]
-keywords_cat_sarampion = ["sarampion", "xarampió"]
+keywords_cat_varicela = ["varicela", "varicella"]
+keywords_cat_sarampion = ["sarampión", "sarampion", "xarampió"]
 keywords_cat_apendicitis = ["apendicitis"]
 
 keywords_basic_cat = [keywords_cat_ebola, keywords_cat_gripe, keywords_cat_resfriado, keywords_cat_cancer, keywords_cat_asma, keywords_cat_hepatitis, keywords_cat_otitis, keywords_cat_diabetes, keywords_cat_caries, keywords_cat_anorexia, keywords_cat_obesidad, keywords_cat_alzheimer, keywords_cat_sida, keywords_cat_varicela, keywords_cat_sarampion, keywords_cat_apendicitis]
 
-# INDEXNAMES ESPAÑOL
+# Spanish Indexnames
 indexname_basic_ebola = 'twitter_basic_ebola'
 indexname_basic_gripe = 'twitter_basic_gripe'
 indexname_basic_resfriado = 'twitter_basic_resfriado'
@@ -94,7 +92,7 @@ indexname_basic_apendicitis = 'twitter_basic_apendicitis'
 
 indexname_basic_es = [indexname_basic_ebola, indexname_basic_gripe, indexname_basic_resfriado, indexname_basic_cancer, indexname_basic_asma, indexname_basic_hepatitis, indexname_basic_otitis, indexname_basic_diabetes, indexname_basic_caries, indexname_basic_anorexia, indexname_basic_obesidad, indexname_basic_alzheimer, indexname_basic_sida, indexname_basic_varicela, indexname_basic_sarampion, indexname_basic_apendicitis]
 
-# INDEXNAMES CATALÁN
+# Catalan Indexnames
 indexname_basic_cat_ebola = 'twitter_basic_cat_ebola'
 indexname_basic_cat_gripe = 'twitter_basic_cat_gripe'
 indexname_basic_cat_resfriado = 'twitter_basic_cat_resfriado'
@@ -115,18 +113,18 @@ indexname_basic_cat_apendicitis = 'twitter_basic_cat_apendicitis'
 indexname_basic_cat = [indexname_basic_cat_ebola, indexname_basic_cat_gripe, indexname_basic_cat_resfriado, indexname_basic_cat_cancer, indexname_basic_cat_asma, indexname_basic_cat_hepatitis, indexname_basic_cat_otitis, indexname_basic_cat_diabetes, indexname_basic_cat_caries, indexname_basic_cat_anorexia, indexname_basic_cat_obesidad, indexname_basic_cat_alzheimer, indexname_basic_cat_sida, indexname_basic_cat_varicela, indexname_basic_cat_sarampion, indexname_basic_cat_apendicitis]
 
 
-# Embeeding de Wikipedia
+# Wikipedia embeddings Spanish keywords
 keywords_wiki_alzheimer = ["alzheimer", "parkinson", "enfermedad", "degenerativa", "demencia", "crohn", "incurable", "sífilis", "neurodegenerativa", "tuberculosis", "cirrosis", "diabetes", "moyamoya", "neurológica", "esquizofrenia", "leucemia", "autoinmune", "padecer", "epilepsia", "cáncer", "dolencia", "neumonía", "infecciosa", "padecía", "sepsis", "ménière", "rubéola", "enfisema", "diagnosticada", "venérea", "asma"]
 
 keywords_wiki_asma = ["asma", "bronquitis", "reumatismo", "migrañas", "gastrointestinales", "gastritis", "sinusitis", "resfriados", "tos", "rinitis", "afecciones", "gastroenteritis", "catarros", "conjuntivitis", "diarreas", "nefritis", "ictericia", "dismenorrea", "epilepsia", "diarrea", "artritis", "colitis", "faringitis", "diabetes", "hemorragias", "ronquera", "hidropesía", "estreñimiento", "cardiovasculares", "epoc", "hemorroides"]
 
-keywords_wiki_cancer = ["cancer", "cáncer", "próstata", "pulmón", "colorrectal", "leucemia", "melanoma", "enfisema", "páncreas", "linfoma", "tumor", "neumonía", "tuberculosis", "metastásico", "diabetes", "cánceres", "meningitis", "enfermedad", "alzheimer", "carcinoma", "hepatocarcinoma", "cirrosis", "metástasis", "microcítico", "cérvico", "peritonitis", "asma", "sífilis", "mama", "glioblastoma", "cervicouterino", "diagnosticado"]
+keywords_wiki_cancer = ["cáncer", "cancer", "próstata", "pulmón", "colorrectal", "leucemia", "melanoma", "enfisema", "páncreas", "linfoma", "tumor", "neumonía", "tuberculosis", "metastásico", "diabetes", "cánceres", "meningitis", "enfermedad", "alzheimer", "carcinoma", "hepatocarcinoma", "cirrosis", "metástasis", "microcítico", "cérvico", "peritonitis", "asma", "sífilis", "mama", "glioblastoma", "cervicouterino", "diagnosticado"]
 
 keywords_wiki_caries = ["caries", "celulitis", "osteoartritis", "gastritis", "litiasis", "indigestión", "osteoporosis", "psoriasis", "periodontales", "gingivitis", "constipación", "amebiasis", "hepatoesplenomegalia", "dispepsias", "pancitopenia", "estreñimiento", "ielonefritis", "supuración", "leucorrea", "vaginitis", "xerosis", "tetania", "pericarditis", "rinorrea", "nefropatías", "cólicos", "acalasia", "eczemas", "meteorismo", "osteoarticulares", "hipocalcemia"]
 
 keywords_wiki_diabetes = ["diabetes", "mellitus", "obesidad", "cardiovasculares", "hipertensión", "asma", "cardiopatías", "osteoporosis", "dislipidemia", "tabaquismo", "reumatismo", "epilepsia", "crohn", "meningitis", "bronquitis", "enfisema", "arteriosclerosis", "gastroenteritis", "cirrosis", "anemia", "gastritis", "artrosis", "cardiovascular", "migrañas", "enfermedad", "arritmia", "sepsis", "parkinson", "epoc", "gastrointestinales", "artritis"]
 
-keywords_wiki_ebola = ["ebola", "ébola", "parainfluenza", "parotiditis", "vlfe", "poliomavirus", "vaccinia", "adenovirus", "estreptococo", "citomegalovirus", "enterovirus", "lcmv", "coronavirus", "sincitial", "vsr", "cowpox", "clamidia", "meningoencefalitis", "arbovirus", "leishmania", "pvy", "papiloma", "salmonelosis", "virus", "zóster", "tularemia", "vph", "papilomavirus", "brucelosis", "rotavirus", "shigelosis"]
+keywords_wiki_ebola = ["ébola", "ebola", "parainfluenza", "parotiditis", "vlfe", "poliomavirus", "vaccinia", "adenovirus", "estreptococo", "citomegalovirus", "enterovirus", "lcmv", "coronavirus", "sincitial", "vsr", "cowpox", "clamidia", "meningoencefalitis", "arbovirus", "leishmania", "pvy", "papiloma", "salmonelosis", "virus", "zóster", "tularemia", "vph", "papilomavirus", "brucelosis", "rotavirus", "shigelosis"]
 
 keywords_wiki_gripe = ["gripe", "influenza", "h1n1", "pandemia", "viruela", "ah1n1", "sarampión", "malaria", "tifus", "sífilis", "tuberculosis", "aviar", "rubéola", "paludismo", "lepra", "tifoidea", "infección", "varicela", "neumonía", "meningitis", "bubónica", "epidémica", "contagio", "hepatitis", "h5n1", "contagiada", "disentería", "dengue", "enfermedad", "infectados", "cólera"]
 
@@ -146,7 +144,7 @@ keywords_wiki_varicela = ["varicela", "herpes", "zóster", "parotiditis", "paper
 
 keywords_wikipedia_es = [keywords_wiki_alzheimer, keywords_wiki_asma, keywords_wiki_cancer, keywords_wiki_caries, keywords_wiki_diabetes, keywords_wiki_ebola, keywords_wiki_gripe, keywords_wiki_hepatitis, keywords_wiki_obesidad, keywords_wiki_otitis, keywords_wiki_resfriado, keywords_wiki_sarampión, keywords_wiki_sida, keywords_wiki_varicela]
 
-# INDEXNAMES
+# Wikipedia Spanish Indexnames
 indexname_wiki_ebola = 'twitter_wiki_ebola'
 indexname_wiki_gripe = 'twitter_wiki_gripe'
 indexname_wiki_resfriado = 'twitter_wiki_resfriado'
@@ -166,42 +164,44 @@ indexname_wiki_apendicitis = 'twitter_wiki_apendicitis'
 
 indexname_wikipedia_es = [indexname_wiki_ebola, indexname_wiki_gripe, indexname_wiki_resfriado, indexname_wiki_cancer, indexname_wiki_asma, indexname_wiki_hepatitis, indexname_wiki_otitis, indexname_wiki_diabetes, indexname_wiki_caries, indexname_wiki_anorexia, indexname_wiki_obesidad, indexname_wiki_alzheimer, indexname_wiki_sida, indexname_wiki_varicela, indexname_wiki_sarampion, indexname_wiki_apendicitis]
 
+# Wikipedia embeddings Catalan keywords
 keywords_cat_wikipedia_hepatitis= ["hepatitis", "infección","varicela","meningitis","encefalitis","infecciosa","sáfilis","parotiditis","herpes","gonorrea","sèpsia","brucel·losi","endocarditis","galteres","cirrosi","citomegalovirus","rubèola","gastroenteritis","várica","toxoplasmosi","hepatocarcinoma","granulomatosa","malaltia","sinusitis","leptospirosi","sarcoïdosi","meningoencefalitis","sarampión","infeccions","malària","paratifoidea"]
 
-keywords_cat_wikipedia_sida = ["vih","hiv","malària","influença","tuberculosi","paludisme","lepra","sáfilis","poliomielitis","ONUSIDA","immunodeficiència","drogadicción","vacunación","hepatitis","dengue","càncer","sarampión","desnutrición","varicel·la","malaltia","brucel·losi","diabetis","tètanus","contagi","seropositius","verola","grip","tabaquisme","leishmaniosi","malalties"]
+keywords_cat_wikipedia_sida = ["sida", "vih","hiv","malària","influença","tuberculosi","paludisme","lepra","sáfilis","poliomielitis","ONUSIDA","immunodeficiència","drogadicción","vacunación","hepatitis","dengue","càncer","sarampión","desnutrición","varicel·la","malaltia","brucel·losi","diabetis","tètanus","contagi","seropositius","verola","grip","tabaquisme","leishmaniosi","malalties"]
 
-keywords_cat_wikipedia_sarampion = ["verola","tifus","diftèria","malària","rubèola","sáfilis","galteres","disenteráa","tuberculosi","meningitis","varicela","tifoide","paludisme","parotiditis","tètanus","hepatitis","poliomielitis","infecció","lepra","encefalitis","brucel·losi","aviària","puerperal","epidèmica","escarlatina","infecciosa","grip","sèpsia","erisipela","hemorràgica"]
+keywords_cat_wikipedia_sarampion = ["sarampión", "verola","tifus","diftèria","malària","rubèola","sáfilis","galteres","disenteráa","tuberculosi","meningitis","varicela","tifoide","paludisme","parotiditis","tètanus","hepatitis","poliomielitis","infecció","lepra","encefalitis","brucel·losi","aviària","puerperal","epidèmica","escarlatina","infecciosa","grip","sèpsia","erisipela","hemorràgica"]
 
-keywords_cat_wikipedia_obesidad = ["diabetis","osteoporosi","tabaquisme","cardiovasculars","epilèpsia","mellitus","migranyes","dislipidèmia","hipertensió","asma","sobrepès","desnutrición","migranya","cardiopatáas","hipertiroïdisme","patir","aterosclerosi","hipogonadisme","acne","gastritis","endocarditis","sèpsia","hipotiroïdisme","crónicos","gastrointestinals","artrosi","anorèxia","artritis","osteoartritis"]
+keywords_cat_wikipedia_obesidad = ["obesidad", "diabetis","osteoporosi","tabaquisme","cardiovasculars","epilèpsia","mellitus","migranyes","dislipidèmia","hipertensió","asma","sobrepès","desnutrición","migranya","cardiopatáas","hipertiroïdisme","patir","aterosclerosi","hipogonadisme","acne","gastritis","endocarditis","sèpsia","hipotiroïdisme","crónicos","gastrointestinals","artrosi","anorèxia","artritis","osteoartritis"]
 
-keywords_cat_wikipedia_alzheimer = ["parkinson","malaltia","degenerativa","demència","crohn","incurable","sáfilis","neurodegenerativa","tuberculosi","cirrosi","diabetis","moyamoya","neurológica","esquizofrènia","leucèmia","autoimmune","patir","epilèpsia","càncer","malaltia","neumonáa","infecciosa","padecáa","sèpsia","ménière","rubèola","emfisema","diagnosticada","venèria","asma"]
+keywords_cat_wikipedia_alzheimer = ["alzheimer", "parkinson","malaltia","degenerativa","demència","crohn","incurable","sáfilis","neurodegenerativa","tuberculosi","cirrosi","diabetis","moyamoya","neurológica","esquizofrènia","leucèmia","autoimmune","patir","epilèpsia","càncer","malaltia","neumonáa","infecciosa","padecáa","sèpsia","ménière","rubèola","emfisema","diagnosticada","venèria","asma"]
 
-keywords_cat_wikipedia_caries = ["cellulitis","osteoartritis","gastritis","litiasi","indigestión","osteoporosi","psoriasi","periodontals","gingivitis","constipación","amebiasi","hepatoesplenomegalia","dispèpsies","pancitopènia","restrenyiment","pielonefritis","supuración","leucorrea","vaginitis","xerosi","tetània","pericarditis","rinorrea","nefropatáas","cólicos","acalàsia","èczemes","meteorisme","osteoarticulars","hipocalcèmia"]
+keywords_cat_wikipedia_caries = ["caries", "cellulitis","osteoartritis","gastritis","litiasi","indigestión","osteoporosi","psoriasi","periodontals","gingivitis","constipación","amebiasi","hepatoesplenomegalia","dispèpsies","pancitopènia","restrenyiment","pielonefritis","supuración","leucorrea","vaginitis","xerosi","tetània","pericarditis","rinorrea","nefropatáas","cólicos","acalàsia","èczemes","meteorisme","osteoarticulars","hipocalcèmia"]
 
-keywords_cat_wikipedia_varicela = ["herpes","zóster","parotiditis","galteres","citomegalovirus","hepatitis","rubèola","gonorrea","meningitis","infecció","brucel·losi","gastroenteritis","zòster","encefalitis","neumonáas","sáfilis","toxoplasmosi","erisipela","sèpsia","sarampión","meningoencefalitis","leptospirosi","immunodeficiència","candidiasi","amebiana","infeccions","VPH","sinusitis","sarcoïdosi","estomatitis"]
+keywords_cat_wikipedia_varicela = ["varicela", "herpes","zóster","parotiditis","galteres","citomegalovirus","hepatitis","rubèola","gonorrea","meningitis","infecció","brucel·losi","gastroenteritis","zòster","encefalitis","neumonáas","sáfilis","toxoplasmosi","erisipela","sèpsia","sarampión","meningoencefalitis","leptospirosi","immunodeficiència","candidiasi","amebiana","infeccions","VPH","sinusitis","sarcoïdosi","estomatitis"]
 
-keywords_cat_wikipedia_asma = ["bronquitis","reumatisme","migranyas","gastrointestinals","gastritis","sinusitis","refredats","tos","rinitis","afeccions","gastroenteritis","refredats","conjuntivitis","diarrees","nefritis","icterícia","dismenorrea","epilèpsia","diarrea","artritis","colitis","faringitis","diabetis","hemorràgies","ronquera","hidropesáa","restrenyiment","cardiovasculars","MPOC","hemorroides"]
+keywords_cat_wikipedia_asma = ["asma", "bronquitis","reumatisme","migranyas","gastrointestinals","gastritis","sinusitis","refredats","tos","rinitis","afeccions","gastroenteritis","refredats","conjuntivitis","diarrees","nefritis","icterícia","dismenorrea","epilèpsia","diarrea","artritis","colitis","faringitis","diabetis","hemorràgies","ronquera","hidropesáa","restrenyiment","cardiovasculars","MPOC","hemorroides"]
 
-keywords_cat_wikipedia_gripe = ["influença","h1n1","pandèmia","verola","AH1N1","sarampión","malària","tifus","sáfilis","tuberculosi","aviària","rubèola","paludisme","lepra","tifoide","infecció","varicel·la","neumonáa","meningitis","bubónica","epidèmica","contagi","hepatitis","H5N1","contagiada","disenteráa","dengue","malaltia","infectats","cólera"]
+keywords_cat_wikipedia_gripe = ["gripe", "influença","h1n1","pandèmia","verola","AH1N1","sarampión","malària","tifus","sáfilis","tuberculosi","aviària","rubèola","paludisme","lepra","tifoide","infecció","varicel·la","neumonáa","meningitis","bubónica","epidèmica","contagi","hepatitis","H5N1","contagiada","disenteráa","dengue","malaltia","infectats","cólera"]
 
-keywords_cat_wikipedia_apendicitis =  ["peritonitis","meningitis","pancreatitis","diverticulitis","descompensada","hemoptisi","colecistitis","infecció","hemorràgia","reumática","neumonáa","artrosi","arítmia","sinusitis","septicèmia","bronquiectasia","nefritis","urèmia","embòlia","pericarditis","sarcoïdosi","endocarditis","cardiopatáa","postoperatori","neurodegenerativa","sèpsia","migranya","osteomielitis","malaltia","isquèmica"]
+keywords_cat_wikipedia_apendicitis =  ["apendicitis", "peritonitis","meningitis","pancreatitis","diverticulitis","descompensada","hemoptisi","colecistitis","infecció","hemorràgia","reumática","neumonáa","artrosi","arítmia","sinusitis","septicèmia","bronquiectasia","nefritis","urèmia","embòlia","pericarditis","sarcoïdosi","endocarditis","cardiopatáa","postoperatori","neurodegenerativa","sèpsia","migranya","osteomielitis","malaltia","isquèmica"]
 
-keywords_cat_wikipedia_otitis = ["sinusitis","faringitis","bronquiectasia","bronquitis","colecistitis","amigdalitis","endocarditis","enteritis","cistitis","purulenta","pancreatitis","sarcoïdosi","epistaxis","gastritis","atrófica","disquinesias","urticària","flebitis","eosinofília","sintomática","hipotiroïdisme","pneumonitis","dismenorrea","uretritis","osteomielitis","artràlgies","litiasi","estomatitis","colitis","hepatobiliars"]
+keywords_cat_wikipedia_otitis = ["otitis", "sinusitis","faringitis","bronquiectasia","bronquitis","colecistitis","amigdalitis","endocarditis","enteritis","cistitis","purulenta","pancreatitis","sarcoïdosi","epistaxis","gastritis","atrófica","disquinesias","urticària","flebitis","eosinofília","sintomática","hipotiroïdisme","pneumonitis","dismenorrea","uretritis","osteomielitis","artràlgies","litiasi","estomatitis","colitis","hepatobiliars"]
 
-keywords_cat_wikipedia_anorexia = ["bulímia","vómitos","marejos","diarrea","cefalea","náuseas","insomni","restrenyiment","gastrointestinals","náusea","migranyes","dispnea","cefalees","icterícia","dispèpsia","epilèpsia","astènia","naáºseas","cólicos","constipación","palpitacions","irritabilitat","diarrees","migranya","vómito","dismenorrea","asma","rampes","espasmes","miàlgia"]
+keywords_cat_wikipedia_anorexia = ["anorexia", "bulímia","vómitos","marejos","diarrea","cefalea","náuseas","insomni","restrenyiment","gastrointestinals","náusea","migranyes","dispnea","cefalees","icterícia","dispèpsia","epilèpsia","astènia","naáºseas","cólicos","constipación","palpitacions","irritabilitat","diarrees","migranya","vómito","dismenorrea","asma","rampes","espasmes","miàlgia"]
 
-keywords_cat_wikipedia_cancer = ["health","gastric","chemotherapy","Psychiatric","breast","research","Cardiology","prevention","Oncology","disorders","diseases","humane","surgical","colorectal","pediatrics","humanities","medical","toxicology","Neurological","clinical","aids","preservation","Biomedical","institutes","treatment","palsy","pathology","Epidemiology","Thoracic","interdisciplinary"]
+keywords_cat_wikipedia_cancer = ["cáncer", "health","gastric","chemotherapy","Psychiatric","breast","research","Cardiology","prevention","Oncology","disorders","diseases","humane","surgical","colorectal","pediatrics","humanities","medical","toxicology","Neurological","clinical","aids","preservation","Biomedical","institutes","treatment","palsy","pathology","Epidemiology","Thoracic","interdisciplinary"]
 
-keywords_cat_wikipedia_resfriado = ["refredat","migranyas","refredats","resfráo","reumatisme","gastroenteritis","indigestión","migranya","cólicos","faringitis","sinusitis","empatx","diarrees","asma","diarrea","varicel·la","amebiasi","reuma","bronquitis","amigdalitis","urticària","gonorrea","gastritis","galteres","úlcera","amebiana","neumocócica","dispèpsia","gripals","ferina"]
+keywords_cat_wikipedia_resfriado = ["resfriado", "refredat","migranyas","refredats","resfráo","reumatisme","gastroenteritis","indigestión","migranya","cólicos","faringitis","sinusitis","empatx","diarrees","asma","diarrea","varicel·la","amebiasi","reuma","bronquitis","amigdalitis","urticària","gonorrea","gastritis","galteres","úlcera","amebiana","neumocócica","dispèpsia","gripals","ferina"]
 
-keywords_cat_wikipedia_diabetes = ["mellitus","obesitat","cardiovasculars","hipertensió","asma","cardiopatáas","osteoporosi","dislipidèmia","tabaquisme","reumatisme","epilèpsia","crohn","meningitis","bronquitis","emfisema","arteriosclerosi","gastroenteritis","cirrosi","anèmia","gastritis","artrosi","cardiovascular","migranyas","malaltia","arítmia","sèpsia","parkinson","MPOC","gastrointestinals","artritis"]
+keywords_cat_wikipedia_diabetes = ["diabetes", "mellitus","obesitat","cardiovasculars","hipertensió","asma","cardiopatáas","osteoporosi","dislipidèmia","tabaquisme","reumatisme","epilèpsia","crohn","meningitis","bronquitis","emfisema","arteriosclerosi","gastroenteritis","cirrosi","anèmia","gastritis","artrosi","cardiovascular","migranyas","malaltia","arítmia","sèpsia","parkinson","MPOC","gastrointestinals","artritis"]
 
-keywords_cat_wikipedia_ebola = ["viruses","mammalian","uptake","corrected","respiratory","inhibition","mediated","Grandparents","limb","peptide","fluorescence","receptors","systemic","mechanisms","sulfate","relationships","leukemia","nested","undergo","deficiency","mitochondrial","aromatic","quantitative","probabilístic","photovoltaic","Pathogens","Pancreatic","activated","propagation","measuring"]
+keywords_cat_wikipedia_ebola = ["ébola", "viruses","mammalian","uptake","corrected","respiratory","inhibition","mediated","Grandparents","limb","peptide","fluorescence","receptors","systemic","mechanisms","sulfate","relationships","leukemia","nested","undergo","deficiency","mitochondrial","aromatic","quantitative","probabilístic","photovoltaic","Pathogens","Pancreatic","activated","propagation","measuring"]
 
 keywords_cat_wikipedia_hepatits = ["hepatitis","meningitis","infecció","parotiditis","VHB","citomegalovirus","VHC","toxoplasmosi","meningococ","galteres","rubèola","rubèola","infeccions","sífilis","influenzae","haemophilus","varicel·la","tifoide","zòster","tuberculosi","virus","Haemophilus","herpes","pneumocòccica","estreptocòccica","meningocòccica","rotavirus","xarampió","tos ferina","pneumococ"]
 
 keywords_wikipedia_cat = [keywords_cat_wikipedia_hepatitis, keywords_cat_wikipedia_sida, keywords_cat_wikipedia_sarampion, keywords_cat_wikipedia_obesidad, keywords_cat_wikipedia_alzheimer, keywords_cat_wikipedia_caries,keywords_cat_wikipedia_varicela, keywords_cat_wikipedia_asma, keywords_cat_wikipedia_gripe, keywords_cat_wikipedia_apendicitis, keywords_cat_wikipedia_otitis, keywords_cat_wikipedia_anorexia, keywords_cat_wikipedia_cancer, keywords_cat_wikipedia_resfriado, keywords_cat_wikipedia_diabetes, keywords_cat_wikipedia_ebola, keywords_cat_wikipedia_hepatits]
 
+# Wikipedia Catalan Indexnames
 indexname_wikipedia_cat_ebola = 'twittercat_wikipedia_ebola'
 indexname_wikipedia_cat_gripe = 'twittercat_wikipedia_gripe'
 indexname_wikipedia_cat_resfriado = 'twittercat_wikipedia_resfriado'
@@ -221,7 +221,7 @@ indexname_wikipedia_cat_apendicitis = 'twittercat_wikipedia_apendicitis'
 
 indexname_wikipedia_cat = [indexname_wikipedia_cat_ebola, indexname_wikipedia_cat_gripe, indexname_wikipedia_cat_resfriado, indexname_wikipedia_cat_cancer, indexname_wikipedia_cat_asma, indexname_wikipedia_cat_hepatitis, indexname_wikipedia_cat_otitis, indexname_wikipedia_cat_diabetes, indexname_wikipedia_cat_caries, indexname_wikipedia_cat_anorexia, indexname_wikipedia_cat_obesidad, indexname_wikipedia_cat_alzheimer, indexname_wikipedia_cat_sida, indexname_wikipedia_cat_varicela, indexname_wikipedia_cat_sarampion, indexname_wikipedia_cat_apendicitis]
 
-# Embeedings de SBW
+# SBW embeddings Spanish keywords
 keywords_sbw_alzheimer = ["alzheimer", "alzhéimer", "demencia", "parkinson", "esclerosis", "neurodegenerativas", "neurodegenerativa", "demencias", "senil", "enfermedad", "esquizofrenia", "Alzhéimer", "neurodegenerativos", "párkinson", "degenerativa", "autismo", "degenerativas", "diabetes", "invidencia", "neurodegenerativo", "leucemia", "crohn", "fibrosis", "ictus", "amiotrófica", "amiotrofica", "epilepsia", "cáncer", "cancer", "Alzhaimer", "arteriosclerosis"]
 
 keywords_sbw_anorexia = ["anorexia", "bulimia", "vigorexia", "obesidad", "ortorexia", "trastornos", "dismórfico", "dismorfico", "premenstrual", "sobrepeso", "diabetes", "hipertensión", "hipertension", "gastritis", "somatizaciones", "somatomorfo", "psicosomáticos", "psicosomaticos", "dismorfofobia", "trastorno", "distimia", "tabaquismo", "anoréxicas", "anorexicas", "estreñimiento", "febrícula", "febricula", "disfórico", "disforico", "irritabilidad", "alcoholismo", "vómitos", "vomitos", "endometriosis", "esquizofrenia", "comorbilidades", "insomnio", "migrañas"]
@@ -230,7 +230,7 @@ keywords_sbw_apendicitis = ["apendicitis", "peritonitis", "hernia", "diverticuli
 
 keywords_sbw_asma = ["asma", "bronquitis", "alergias", "hipertensión", "hipertension", "asmáticos", "asmaticos", "respiratorias", "rinitis", "sinusitis", "bronquial", "obstructiva", "afecciones", "respiratorios", "broncoespasmo", "reumática", "reumatica", "artritis", "pulmonares", "gastritis", "cardiopatías", "cardiopatias", "cardiovasculares", "diabetes", "neumopatías", "neumopatias", "epilepsia", "miocarditis", "tos", "dispepsia", "migrañas", "bronquiolitis", "colitis", "péptica", "peptica", "alérgica", "alergica", "rinoconjuntivitis"]
 
-keywords_sbw_cancer = ["cancer", "cáncer", "colorectal", "mama", "pancreas", "colon", "carcinoma", "breast", "próstata", "prostata", "colorrectal", "neuroblastoma", "metastásico", "metastasico", "tumors", "HPV", "melanoma", "tumor", "tumour", "pneumonia", "leucemia", "prostate", "disease", "espinocelular", "metastasis", "patients", "cystic", "laparoscopic", "hepatocarcinoma", "microcítico", "microcitico", "coronary", "cánceres", "canceres", "carcinoma", "pulmón", "pulmon", "tumor", "páncreas", "linfoma", "cervicouterino", "enfermedad", "tumores", "mieloma", "diabetes", "uterino", "metástasis", "metastasis", "cérvico", "cervico", "quimioterapia", "pancreático", "pancreatico", "cirrosis", "mesotelioma", "mamario", "sarcoma", "hepatocarcinoma", "metastatizado"]
+keywords_sbw_cancer = ["cáncer", "cancer", "colorectal", "mama", "pancreas", "colon", "carcinoma", "breast", "próstata", "prostata", "colorrectal", "neuroblastoma", "metastásico", "metastasico", "tumors", "HPV", "melanoma", "tumor", "tumour", "pneumonia", "leucemia", "prostate", "disease", "espinocelular", "metastasis", "patients", "cystic", "laparoscopic", "hepatocarcinoma", "microcítico", "microcitico", "coronary", "cánceres", "canceres", "carcinoma", "pulmón", "pulmon", "tumor", "páncreas", "linfoma", "cervicouterino", "enfermedad", "tumores", "mieloma", "diabetes", "uterino", "metástasis", "metastasis", "cérvico", "cervico", "quimioterapia", "pancreático", "pancreatico", "cirrosis", "mesotelioma", "mamario", "sarcoma", "hepatocarcinoma", "metastatizado"]
 
 keywords_sbw_caries = ["caries", "gingivitis", "encías", "encias", "periodontales", "periodontitis", "fluorosis", "periodontal", "halitosis", "bucal", "dental", "maloclusión", "maloclusion", "osteoporosis", "dentobacteriana", "dentales", "bucales", "gastrointestinales", "desmineralización", "desmineralizacion", "sarro", "gastritis", "piorrea", "remineralización", "remineralizacion", "bruxismo", "caries", "várices", "ulceras", "biofilm", "pulpitis", "úlceras", "ulceras", "ferropénica", "ferropenica", "ferropenia", "diabetes"]
 
@@ -248,7 +248,7 @@ keywords_sbw_otitis = ["otitis", "sinusitis", "conjuntivitis", "faringitis", "os
 
 keywords_sbw_resfriado = ["resfriado", "catarro", "resfrío", "resfrio", "faringitis", "gripa", "bronquitis", "sinusitis", "gripes", "gastroenteritis", "resfriados", "neumonía", "neumonia", "amigdalitis", "tos", "rinofaringitis", "diarrea", "rinitis", "gripales", "catarros", "estreptocócica", "estreptococica", "conjuntivitis", "reumática", "reumatica", "antitérmicos", "antitermicos", "gripe", "ronquera", "vómito", "vomito", "laringitis", "constipado", "anginas", "varicela", "broncoespasmo", "estomacal"]
 
-keywords_sbw_sarampion = ["sarampion", "sarampión", "tétanos", "tetanos", "poliomielitis", "difteria", "rubéola", "rubeola", "paperas", "ferina", "parotiditis", "inmunización", "inminizacion", "tétano", "tetano", "tosferina", "vacunación", "vacunacion", "polio", "meningitis", "pertusis", "antipoliomielítica", "antipoliomelitica", "neumococo", "rotavirus", "inmunizar", "viruela", "DPTDIGITO", "vacunados", "varicela", "hepatitis", "hib", "antitetánica", "antitetanica", "neonatal", "inmunizados", "vacuna"]
+keywords_sbw_sarampion = ["sarampión", "sarampion", "tétanos", "tetanos", "poliomielitis", "difteria", "rubéola", "rubeola", "paperas", "ferina", "parotiditis", "inmunización", "inminizacion", "tétano", "tetano", "tosferina", "vacunación", "vacunacion", "polio", "meningitis", "pertusis", "antipoliomielítica", "antipoliomelitica", "neumococo", "rotavirus", "inmunizar", "viruela", "DPTDIGITO", "vacunados", "varicela", "hepatitis", "hib", "antitetánica", "antitetanica", "neonatal", "inmunizados", "vacuna"]
 
 keywords_sbw_sida = ["sida", "vih", "tuberculosis", "malaria", "inmunodeficiencia", "seropositivos", "pandemia", "paludismo", "antisida", "epidemia", "inmunodeficiencia", "hepatitis", "onusida", "antiretrovirales", "retrovirales", "antirretrovirales", "cáncer", "cancer", "onusida", "seropositivas", "hiv", "neumocócica", "neumococica", "infecciosas", "infección", "infeccion", "coinfección", "coinfeccion", "infecciones", "antirretroviral", "virus", "antirretrovírico", "antirretrovirico", "multirresistente"]
 
@@ -256,7 +256,7 @@ keywords_sbw_varicela = ["varicela", "meningitis", "zóster", "zoster", "herpes"
 
 keywords_sbw_es = [keywords_sbw_alzheimer, keywords_sbw_anorexia, keywords_sbw_apendicitis, keywords_sbw_asma, keywords_sbw_cancer, keywords_sbw_caries, keywords_sbw_diabetes, keywords_sbw_ebola, keywords_sbw_gripe, keywords_sbw_hepatitis, keywords_sbw_obesidad, keywords_sbw_otitis, keywords_sbw_resfriado, keywords_sbw_sarampion, keywords_sbw_sida, keywords_sbw_varicela]
 
-# INDEXNAMES
+# SBW Spanish Indexnames
 indexname_sbw_ebola = 'twitter_sbw_ebola'
 indexname_sbw_gripe = 'twitter_sbw_gripe'
 indexname_sbw_resfriado = 'twitter_sbw_resfriado'
@@ -276,35 +276,34 @@ indexname_sbw_apendicitis = 'twitter_sbw_apendicitis'
 
 indexname_sbw_es = [indexname_sbw_ebola, indexname_sbw_gripe, indexname_sbw_resfriado, indexname_sbw_cancer, indexname_sbw_asma, indexname_sbw_hepatitis, indexname_sbw_otitis, indexname_sbw_diabetes, indexname_sbw_caries, indexname_sbw_anorexia, indexname_sbw_obesidad, indexname_sbw_alzheimer, indexname_sbw_sida, indexname_sbw_varicela, indexname_sbw_sarampion, indexname_sbw_apendicitis]
 
-# SBW
-keywords_cat_sbw_sida = ["VIH","SIDA","Sida","tuberculosi","malària","Immunodeficiència","seropositius","pandèmia","paludisme","antisida","epidèmia","immunodeficiència","hepatitis","Onusida","antiretrovirals","retrovirals","antiretrovirals","càncer","ONUSIDA","seropositives","HIV","pneumocòccica","infeccioses","infecció","coinfecció","infeccions","antiretroviral","virus","antiretrovíric","multiresistent"]
+# SBW embeddings Catalan keywords
+keywords_cat_sbw_sida = ["sida", "VIH","SIDA","Sida","tuberculosi","malària","Immunodeficiència","seropositius","pandèmia","paludisme","antisida","epidèmia","immunodeficiència","hepatitis","Onusida","antiretrovirals","retrovirals","antiretrovirals","càncer","ONUSIDA","seropositives","HIV","pneumocòccica","infeccioses","infecció","coinfecció","infeccions","antiretroviral","virus","antiretrovíric","multiresistent"]
 
-keywords_cat_sbw_cancer = ["càncer", "mama","pròstata","colorectal","leucèmia","pulmó","càncers","melanoma","còlon","tumor","pàncrees","limfoma","carcinoma","cervicouterino","malaltia","cancer","metastàtic","tumors","mieloma","diabetis","uterí","metàstasi","cèrvico","quimioteràpia","pancreàtic","cirrosi","mesotelioma","mamari","sarcoma","hepatocarcinoma","metastatizado"]
+keywords_cat_sbw_cancer = ["cáncer", "càncer", "mama","pròstata","colorectal","leucèmia","pulmó","càncers","melanoma","còlon","tumor","pàncrees","limfoma","carcinoma","cervicouterino","malaltia","cancer","metastàtic","tumors","mieloma","diabetis","uterí","metàstasi","cèrvico","quimioteràpia","pancreàtic","cirrosi","mesotelioma","mamari","sarcoma","hepatocarcinoma","metastatizado"]
 
-keywords_cat_sbw_sarampion = ["tètanus","poliomielitis","diftèria","rubèola","galteres","ferina","parotiditis","immunització","rubèola","tètan","tos ferina","vacunació","pòlio","meningitis","pertussis","antipoliomielítica","pneumococ","rotavirus","immunitzar","verola","DPTDIGITO","vacunats","varicel·la","xarampió","hepatitis","Hib","antitetànica","neonatal","immunitzats","vacuna"]
+keywords_cat_sbw_sarampion = ["sarampión", "tètanus","poliomielitis","diftèria","rubèola","galteres","ferina","parotiditis","immunització","rubèola","tètan","tos ferina","vacunació","pòlio","meningitis","pertussis","antipoliomielítica","pneumococ","rotavirus","immunitzar","verola","DPTDIGITO","vacunats","varicel·la","xarampió","hepatitis","Hib","antitetànica","neonatal","immunitzats","vacuna"]
 
-keywords_cat_sbw_obesidad = ["sobrepès","diabetis","hipertensió","tabaquisme","sedentarisme","cardiovasculars","osteoporosi","obesos","mellitus","hipercolesterolèmia","degeneratives","anorèxia","mòrbida","dislipidèmia","desnutrició","bulímia","malalties","morbiditat","prediabetis","obesitat","dislipèmies","malnutrició","patiment","hiperlipidèmia","ferropènica","cardiopaties","diabètics","obeses","prediabètics","dislipidèmies"]
+keywords_cat_sbw_obesidad = ["obesidad", "sobrepès","diabetis","hipertensió","tabaquisme","sedentarisme","cardiovasculars","osteoporosi","obesos","mellitus","hipercolesterolèmia","degeneratives","anorèxia","mòrbida","dislipidèmia","desnutrició","bulímia","malalties","morbiditat","prediabetis","obesitat","dislipèmies","malnutrició","patiment","hiperlipidèmia","ferropènica","cardiopaties","diabètics","obeses","prediabètics","dislipidèmies"]
 
-keywords_cat_sbw_alzheimer = ["Alzheimer","Parkinson","Alzheimer","demència","parkinson","esclerosi","neurodegeneratives","neurodegenerativa","demències","senil","malaltia","esquizofrènia","alzheimer","neurodegeneratius","Parkinson","degenerativa","autisme","degeneratives","diabetis","invidència","neurodegeneratiu","leucèmia","Crohn","fibrosi","ictus","amiotròfica","epilèpsia","càncer","Alzheimer","arteriosclerosi"]
+keywords_cat_sbw_alzheimer = ["alzheimer", "Alzheimer","Parkinson","Alzheimer","demència","parkinson","esclerosi","neurodegeneratives","neurodegenerativa","demències","senil","malaltia","esquizofrènia","alzheimer","neurodegeneratius","Parkinson","degenerativa","autisme","degeneratives","diabetis","invidència","neurodegeneratiu","leucèmia","Crohn","fibrosi","ictus","amiotròfica","epilèpsia","càncer","Alzheimer","arteriosclerosi"]
 
-keywords_cat_sbw_caries = ["gingivitis","genives","periodontals","periodontitis","fluorosi","periodontal","halitosi","bucal","dental","maloclusió","osteoporosi","dentobacteriana","dentals","bucals","gastrointestinals","desmineralització","tosca","gastritis","piorrea","remineralització","bruxisme","Carles","varius","úlceres","biofilm","pulpitis","úlceres","ferropènica","ferropènia","diabetis"]
+keywords_cat_sbw_caries = ["caries", "gingivitis","genives","periodontals","periodontitis","fluorosi","periodontal","halitosi","bucal","dental","maloclusió","osteoporosi","dentobacteriana","dentals","bucals","gastrointestinals","desmineralització","tosca","gastritis","piorrea","remineralització","bruxisme","Carles","varius","úlceres","biofilm","pulpitis","úlceres","ferropènica","ferropènia","diabetis"]
 
-keywords_sbw_cat_varicela = ["meningitis","zòster","herpes","bronquiolitis","hepatitis","rubèola","galteres","xarampió","rotavirus","gripals","infecció","encefalitis","tos ferina","influença","pneumònies","grip","rubèola","parotiditis","tètan","gripa","estreptocòccica","diarrea","pneumocòccica","infeccions","gastroenteritis","dengue","salmonel·losi","toxoplasmosi","diftèria","ferina"]
+keywords_sbw_cat_varicela = ["varicela", "meningitis","zòster","herpes","bronquiolitis","hepatitis","rubèola","galteres","xarampió","rotavirus","gripals","infecció","encefalitis","tos ferina","influença","pneumònies","grip","rubèola","parotiditis","tètan","gripa","estreptocòccica","diarrea","pneumocòccica","infeccions","gastroenteritis","dengue","salmonel·losi","toxoplasmosi","diftèria","ferina"]
 
-keywords_cat_sbw_asma = ["bronquitis","al·lèrgies","hipertensió","asmàtics","respiratòries","rinitis","sinusitis","bronquial","obstructiva","afeccions","respiratoris","broncoespasme","reumàtica","artritis","pulmonars","gastritis","cardiopaties","cardiovasculars","diabetis","pneumopaties","epilèpsia","miocarditis","tos","dispèpsia","migranyes","bronquiolitis","colitis","pèptica","al·lèrgica","rinoconjuntivitis"]
+keywords_cat_sbw_asma = ["asma", "bronquitis","al·lèrgies","hipertensió","asmàtics","respiratòries","rinitis","sinusitis","bronquial","obstructiva","afeccions","respiratoris","broncoespasme","reumàtica","artritis","pulmonars","gastritis","cardiopaties","cardiovasculars","diabetis","pneumopaties","epilèpsia","miocarditis","tos","dispèpsia","migranyes","bronquiolitis","colitis","pèptica","al·lèrgica","rinoconjuntivitis"]
 
-keywords_cat_sbw_gripe = ["aviària","influença","AHDIGITO","pandèmica","grip","influenza","pandèmia","epidèmic","aviària","varicel·la","virus","patògena","influença","pandèmic","meningitis","gripals","contagis","aftosa","grips","epidèmia","infecció","salmonel·losi","dengue","hiperpatógena","epidèmica","ebola","hepatitis","vacuna","SARS","gripa"]
+keywords_cat_sbw_gripe = ["gripe", "aviària","influença","AHDIGITO","pandèmica","grip","influenza","pandèmia","epidèmic","aviària","varicel·la","virus","patògena","influença","pandèmic","meningitis","gripals","contagis","aftosa","grips","epidèmia","infecció","salmonel·losi","dengue","hiperpatógena","epidèmica","ebola","hepatitis","vacuna","SARS","gripa"]
 
-keywords_cat_sbw_apendicitis = ["peritonitis","hèrnia","diverticulitis","apendicectomia","pneumònia","amigdalitis","tromboembòlia","reumàtica","hemorràgia","pancreatitis","colecistitis","pericarditis","úlcera","sinusitis","nefritis","cardiorespiratoris","osteomielitis","sèpsia","cervicàlgia","broncopneumònia","miocarditis","abscés","hemoptisi","adenopatia","urèmia","bursitis","abscés","colangitis","postoperatòries","endometritis"]
+keywords_cat_sbw_apendicitis = ["apendicitis", "peritonitis","hèrnia","diverticulitis","apendicectomia","pneumònia","amigdalitis","tromboembòlia","reumàtica","hemorràgia","pancreatitis","colecistitis","pericarditis","úlcera","sinusitis","nefritis","cardiorespiratoris","osteomielitis","sèpsia","cervicàlgia","broncopneumònia","miocarditis","abscés","hemoptisi","adenopatia","urèmia","bursitis","abscés","colangitis","postoperatòries","endometritis"]
 
-keywords_cat_sbw_otitis = ["sinusitis","otitis","conjuntivitis","faringitis","osteomielitis","rinofaringitis","epistaxis","bronquiolitis","amigdalitis","otorrea","supuració","traqueïtis","queratitis","pneumònies","candidiasi","mastoïditis","bacteremia","enteritis","uveïtis","laringotraqueobronquitis","esplenomegàlia","meningoencefalitis","colangitis","sobreinfecció","endocarditis","bronquitis","esclerosant","èczema","pneumonitis","impetigen"]
+keywords_cat_sbw_otitis = ["otitis", "sinusitis","otitis","conjuntivitis","faringitis","osteomielitis","rinofaringitis","epistaxis","bronquiolitis","amigdalitis","otorrea","supuració","traqueïtis","queratitis","pneumònies","candidiasi","mastoïditis","bacteremia","enteritis","uveïtis","laringotraqueobronquitis","esplenomegàlia","meningoencefalitis","colangitis","sobreinfecció","endocarditis","bronquitis","esclerosant","èczema","pneumonitis","impetigen"]
 
-keywords_cat_sbw_anorexia = ["bulímia","vigorèxia","obesitat","ortorèxia","trastorns","dismórfico","premenstrual","sobrepès","diabetis","hipertensió","gastritis","somatitzacions","somatomorf","psicosomàtics","dismorfofòbia","trastorn","distímia","tabaquisme","anorèxiques","restrenyiment","febrícula","disfòric","irritabilitat","alcoholisme","vòmits","endometriosi","esquizofrènia","comorbiditats","insomni","migranyes"]
+keywords_cat_sbw_anorexia = ["anorexia", "bulímia","vigorèxia","obesitat","ortorèxia","trastorns","dismórfico","premenstrual","sobrepès","diabetis","hipertensió","gastritis","somatitzacions","somatomorf","psicosomàtics","dismorfofòbia","trastorn","distímia","tabaquisme","anorèxiques","restrenyiment","febrícula","disfòric","irritabilitat","alcoholisme","vòmits","endometriosi","esquizofrènia","comorbiditats","insomni","migranyes"]
 
+keywords_cat_sbw_resfriado = ["resfriado", "refredat","refredat","faringitis","gripa","bronquitis","sinusitis","grips","gastroenteritis","refredats","pneumònia","amigdalitis","tos","rinofaringitis","diarrea","rinitis","gripals","refredats","estreptocòccica","conjuntivitis","reumàtica","antitèrmics","grip","ronquera","vòmit","laringitis","constipat","angines","varicel·la","broncoespasme","estomacal"]
 
-keywords_cat_sbw_resfriado = ["refredat","refredat","faringitis","gripa","bronquitis","sinusitis","grips","gastroenteritis","refredats","pneumònia","amigdalitis","tos","rinofaringitis","diarrea","rinitis","gripals","refredats","estreptocòccica","conjuntivitis","reumàtica","antitèrmics","grip","ronquera","vòmit","laringitis","constipat","angines","varicel·la","broncoespasme","estomacal"]
-
-keywords_cat_sbw_diabetes = ["mellitus","hipertensió","cardiovasculars","obesitat","osteoporosi","degeneratives","malalties","hipercolesterolèmia","cardíaques","cardíaques","diabètics","insulinodependent","malaltia","arterial","cardiopaties","cardiopatia","infarts","cardiovascular","sobrepès","dislipidèmia","cirrosi","diabètica","arteriosclerosi","patiment","isquèmica","diabètiques","arteriosclerosi","cerebrovasculars","diabetis","artritis"]
+keywords_cat_sbw_diabetes = ["diabetes", "mellitus","hipertensió","cardiovasculars","obesitat","osteoporosi","degeneratives","malalties","hipercolesterolèmia","cardíaques","cardíaques","diabètics","insulinodependent","malaltia","arterial","cardiopaties","cardiopatia","infarts","cardiovascular","sobrepès","dislipidèmia","cirrosi","diabètica","arteriosclerosi","patiment","isquèmica","diabètiques","arteriosclerosi","cerebrovasculars","diabetis","artritis"]
 
 keywords_cat_sbw_ebola = ["ébola","ebola","grip","Lassa","legionel·losi","leptospirosi","pneumocòccica","epidèmic","pandèmia","meningocòccica","dengue","exantemàtic","influença","pandèmic","virus","chikungunya","hantavirus","epidèmia","meningitis","chikungunya","leishmaniosi","infecció","brot","hemorràgica","contagis","poliovirus","aviària","tularèmia","sars","infectada"]
 
@@ -312,7 +311,7 @@ keywords_cat_sbw_hepatitis  = ["hepatitis","meningitis","infecció","parotiditis
 
 keywords_sbw_cat = [keywords_cat_sbw_sida, keywords_cat_sbw_cancer, keywords_cat_sbw_sarampion, keywords_cat_sbw_obesidad, keywords_cat_sbw_alzheimer, keywords_cat_sbw_caries, keywords_sbw_cat_varicela, keywords_cat_sbw_asma, keywords_cat_sbw_gripe, keywords_cat_sbw_apendicitis, keywords_cat_sbw_otitis, keywords_cat_sbw_anorexia, keywords_cat_sbw_resfriado, keywords_cat_sbw_diabetes, keywords_cat_sbw_ebola, keywords_cat_sbw_hepatitis]
 
-
+# SBW Catalan Indexnames
 indexname_sbw_cat_ebola = 'twittercat_sbw_ebola'
 indexname_sbw_cat_gripe = 'twittercat_sbw_gripe'
 indexname_sbw_cat_resfriado = 'twittercat_sbw_resfriado'
@@ -332,22 +331,22 @@ indexname_sbw_cat_apendicitis = 'twittercat_sbw_apendicitis'
 
 indexname_sbw_cat = [indexname_sbw_cat_ebola, indexname_sbw_cat_gripe, indexname_sbw_cat_resfriado, indexname_sbw_cat_cancer, indexname_sbw_cat_asma, indexname_sbw_cat_hepatitis, indexname_sbw_cat_otitis, indexname_sbw_cat_diabetes, indexname_sbw_cat_caries, indexname_sbw_cat_anorexia, indexname_sbw_cat_obesidad, indexname_sbw_cat_alzheimer, indexname_sbw_cat_sida, indexname_sbw_cat_varicela, indexname_sbw_cat_sarampion, indexname_sbw_cat_apendicitis]
 
-if (localizacion=='Madrid'):
+if (location=='Madrid'):
 	GEOBOX = [-4.3763,40.0642,-3.0508,40.8438]
 	LOCATION = "40.41, -3.70"
-elif (localizacion=='Barcelona'):
+elif (location=='Barcelona'):
 	GEOBOX = [0.5,41.04,3.07,42.18]
 	LOCATION = "41.38, 2.16"
-elif (localizacion=='Sevilla'):
+elif (location=='Sevilla'):
 	GEOBOX = [-6.95,36.99,-5.12,37.8]
 	LOCATION = "37.39, -5.95"
-elif (localizacion=='Bilbao'):
+elif (location=='Bilbao'):
 	GEOBOX = [-4.19,42.59,-1.89,43.72]
 	LOCATION = "43.26, -2.93"
-elif (localizacion=='Valencia'):
+elif (location=='Valencia'):
 	GEOBOX = [-1.65,38.77,0.92,40.42]
 	LOCATION = "39.45, -0.35"
-elif (localizacion=='Málaga'):
+elif (location=='Málaga'):
 	GEOBOX = [-5.434,36.4285,-3.6057,37.2511]
 	LOCATION = "36.75, -4.39"
 
@@ -358,7 +357,7 @@ api = tweepy.API(auth)
 
 # Create Elasticsearch engine and then an Index to save the same
 es = Elasticsearch([{'host' : 'localhost', 'port' : 9200}])
-#es.indices.create(index=indexname, ignore=400)
+
 
 mapping = {
 	"mappings": {
@@ -403,7 +402,7 @@ mapping = {
     }
 }
 
-# Creo todos los índices
+# Indexnames creation
 for indexname in indexname_basic_es:
 	exist = es.indices.exists(indexname)
 	if not(exist):
@@ -452,7 +451,7 @@ class StreamApi(tweepy.StreamListener):
 			except:
 				lang = 'error'
 
-		# Filtro los tweets si tienen las keywords y es en español o catalán...
+
 		if (lang == 'es' or lang == 'ca'):
 			# Hashtags
 			hts = []
@@ -501,14 +500,14 @@ class StreamApi(tweepy.StreamListener):
 					    "created_at": json_data["created_at"],
 					    "id": json_data["id"],
 					    "id_str": json_data["id_str"],
-					    "lang": json_data["lang"],
+					    "lang": lang,
 					    "timestamp_ms": datetime.now(),
 					    "loc": LOCATION,
 					    "text": tweet,
 					    "hts": hts,
 					    "disease": keywords[0],
 					    "tokens": tokens_without_stopwords_and_punctuations,
-					    "city": localizacion
+					    "city": location
 					}
 					es.index(index=indexname_basic[counter], doc_type="twitter", body=doc1, ignore=400)
 				counter = counter+1
@@ -529,35 +528,35 @@ class StreamApi(tweepy.StreamListener):
 						    "hts": hts,
 						    "disease": keywords[0],
 						    "tokens": tokens_without_stopwords_and_punctuations,
-					    	"city": localizacion
+					    	"city": location
 					}
 					es.index(index=indexname_wikipedia[counter], doc_type="twitter", body=doc1, ignore=400)
 				counter = counter+1
 
-				# SBW
-				counter = 0
-				for keywords in keywords_sbw:
-					if any(word in tweet.split() for word in keywords):
-						doc1 = {
-						    "created_at": json_data["created_at"],
-						    "id": json_data["id"],
-						    "id_str": json_data["id_str"],
-						    "lang": json_data["lang"],
-						    "timestamp_ms": datetime.now(),
-						    "loc": LOCATION,
-						    "text": tweet,
-						    "hts": hts,
-						    "disease": keywords[0],
-						    "tokens": tokens_without_stopwords_and_punctuations,
-					    	"city": localizacion
-						}
-						es.index(index=indexname_sbw[counter], doc_type="twitter", body=doc1, ignore=400)
-					counter = counter+1
+			# SBW
+			counter = 0
+			for keywords in keywords_sbw:
+				if any(word in tweet.split() for word in keywords):
+					doc1 = {
+					    "created_at": json_data["created_at"],
+					    "id": json_data["id"],
+					    "id_str": json_data["id_str"],
+					    "lang": json_data["lang"],
+					    "timestamp_ms": datetime.now(),
+					    "loc": LOCATION,
+					    "text": tweet,
+					    "hts": hts,
+					    "disease": keywords[0],
+					    "tokens": tokens_without_stopwords_and_punctuations,
+				    	"city": location
+					}
+					es.index(index=indexname_sbw[counter], doc_type="twitter", body=doc1, ignore=400)
+				counter = counter+1
 
 		time.sleep(10)
 
 	def on_error(self, status_code):
-		print('Error encontrado con código:', status_code)
+		print('Error with code:', status_code)
 		time.sleep(200)
 		return True
 		print("Stream restarted")
