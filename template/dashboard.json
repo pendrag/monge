@@ -1,0 +1,19 @@
+[
+  {
+    "_id": "AWFlHqgJIh0c85ZJqgVe",
+    "_type": "dashboard",
+    "_source": {
+      "title": "monge_monitor_geografico_de_enfermedades",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":8,\"id\":\"AWFlEhZmIh0c85ZJqgVb\",\"panelIndex\":2,\"row\":6,\"size_x\":5,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"AWFlH1gSIh0c85ZJqgVf\",\"panelIndex\":3,\"row\":1,\"size_x\":7,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"AWFlMDB8Ih0c85ZJqgVj\",\"panelIndex\":6,\"row\":6,\"size_x\":7,\"size_y\":3,\"type\":\"visualization\"},{\"col\":8,\"id\":\"AWFxjih4Ih0c85ZJqgY2\",\"panelIndex\":9,\"row\":1,\"size_x\":5,\"size_y\":5,\"type\":\"visualization\"},{\"size_x\":5,\"size_y\":3,\"panelIndex\":10,\"type\":\"visualization\",\"id\":\"AWF5iTjvIh0c85ZJqgZe\",\"col\":8,\"row\":9},{\"size_x\":7,\"size_y\":3,\"panelIndex\":11,\"type\":\"visualization\",\"id\":\"AWFlJEVcIh0c85ZJqgVg\",\"col\":1,\"row\":9}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-3\":{\"mapCenter\":[36.29741818650811,-5.60302734375],\"mapZoom\":5},\"P-6\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"$state\":{\"store\":\"appState\"},\"geo_bounding_box\":{\"ignore_unmapped\":true,\"loc\":{\"bottom_right\":{\"lat\":25.01758884626578,\"lon\":9.21539157629013},\"top_left\":{\"lat\":51.73496721279749,\"lon\":-24.18304592370987}}},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"AWFc0yjFMMuHFv9LAkE1\",\"key\":\"loc\",\"negate\":false,\"type\":\"geo_bounding_box\",\"value\":\"{\\n  \\\"lat\\\": 51.73496721279749,\\n  \\\"lon\\\": -24.18304592370987\\n} to {\\n  \\\"lat\\\": 25.01758884626578,\\n  \\\"lon\\\": 9.21539157629013\\n}\"}},{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  }
+]
