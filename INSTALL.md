@@ -1,8 +1,7 @@
 1. Instalar ELK (ElasticSearch, Logstash y Kibana)
 
     1.1. Instalar Java JDK
-
->> Para instalar JDK añadiremos el repositorio ppa, actualizaremos repositorios e instalaremos java, para ellos ejecutaremos:  
+    Para instalar JDK añadiremos el repositorio ppa, actualizaremos repositorios e instalaremos java, para ellos ejecutaremos:  
 
 ```bash
 add-apt-repository ppa:webupd8team/java  
