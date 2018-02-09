@@ -43,7 +43,7 @@ Para los distintos scripts necesitaremos tener instalado Python, en su versión 
     ```sudo apt-get install python3.4```  
 
 3. **Instalar librerías**  
-Algunos scripts de python hacen uso de librerías, y si no las tenemos instaladas al lanzarlo nos lo indicará y habrá que instalarlas, tal como tweepy, nltk, gensim, googletrans, langdetect, stop_words, textwrap, elasticsearch  
+Algunos scripts de python hacen uso de librerías, y si no las tenemos instaladas al lanzarlo nos lo indicará y habrá que instalarlas, tales como tweepy, nltk, gensim, googletrans, langdetect, stop_words, textwrap, elasticsearch  
     ```pip install tweepy  
     pip install nltk  
     pip install gensim  
