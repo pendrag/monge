@@ -12,8 +12,7 @@ Elasticsearch es un motor de búsqueda y análisis distribuido, para instalarlo 
  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -  
  echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list  
  apt-get update  
- apt-get install elasticsearch  
-   
+ apt-get install elasticsearch     
  systemctl start elasticsearch  
  systemctl enable elasticsearch  
 
